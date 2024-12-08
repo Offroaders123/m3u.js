@@ -7,7 +7,7 @@ var fs = require('fs');
 var should = require('chai').should();
 var expect = require('chai').expect;
 
-var m3u = require('../index.js');
+var m3u = require('../src/index.js');
 
 describe("Parsing m3u", function() {
     var parsed = m3u.parse(fs.readFileSync('./test.m3u', 'utf8'));
