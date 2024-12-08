@@ -28,8 +28,8 @@ function parseParams(data: string): Params {
 
         //console.log(util.inspect(m));
 
-        key = m[2] ? m[2] : m[3];
-        value = m[5] ? m[5] : m[6];
+        key = m[2]! ? m[2]! : m[3]!;
+        value = m[5]! ? m[5]! : m[6]!;
 
         result[key] = value;
     }
