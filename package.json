@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/solvek/m3u.js#readme",
   "devDependencies": {
-    "chai": "*",
-    "mocha": "*"
+    "chai": "^5.1.2",
+    "mocha": "^11.0.1"
   }
 }
