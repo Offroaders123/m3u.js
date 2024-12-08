@@ -2,13 +2,13 @@
  * Created by solvek on 26.01.16.
  */
 
-var { describe, it } = require('node:test');
-var chai = require('chai');
-var fs = require('fs');
-var should = require('chai').should();
-var expect = require('chai').expect;
+import { describe, it } from 'node:test';
+import chai = require('chai');
+import fs = require('fs');
+import { should, expect } from 'chai';
+should();
 
-var m3u = require('../src/index.js');
+import m3u = require('../src/index.js');
 
 describe("Parsing m3u", function() {
     var parsed = m3u.parse(fs.readFileSync('./test.m3u', 'utf8'));

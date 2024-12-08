@@ -10,27 +10,16 @@ var REGEX_DURATION = /\s*(-?\d+)/g;
 
 //var util = require('util');
 
-/**
- * @typedef {{ title: string; length: number; params: Params; file: string; }} Track
- */
+export type Track = { title: string; length: number; params: Params; file: string; };
 
-/**
- * @typedef {Record<string, string>} Params
- */
+export type Params = Record<string, string>;
 
-/**
- * @typedef {{ tracks: Track[]; header: Params; }} M3U
- */
+export type M3U = { tracks: Track[]; header: Params; };
 
-/**
- * @param {string} data
- * @returns {Params}
- */
-function parseParams(data){
-    /** @type {Params} */
-    var result = {};
+function parseParams(data: string): Params {
+    var result: Params = {};
 
-    var /** @type {RegExpExecArray | null} */ m, /** @type {string} */ key, /** @type {string} */ value;
+    var m: RegExpExecArray | null, key: string, value: string;
 
     while ((m = REGEX_PARAMS.exec(data)) !== null) {
         if (m.index === REGEX_PARAMS.lastIndex) {
@@ -49,13 +38,8 @@ function parseParams(data){
     return result;
 }
 
-/**
- * @param {Params} params
- * @returns {string}
- */
-function formatParams(params){
-    /** @type {string} */
-    var result = '';
+function formatParams(params: Params): string {
+    var result: string = '';
     for(var key in params){
         result += ' ' + key + '="' + params[key]+'"';
     }
@@ -63,24 +47,18 @@ function formatParams(params){
     return result;
 }
 
-/**
- * @param {string} content
- * @returns {M3U}
- */
-function parse(content){
-    /** @type {M3U} */
-    var result = {
+function parse(content: string): M3U {
+    var result: M3U = {
         tracks: [],
         header: {}
     };
 
     //console.log(content);
-    /** @type {string[]} */
-    var lines = content.split('\n');
+    var lines: string[] = content.split('\n');
 
-    var /** @type {string} */ line, /** @type {Track} */ current = {}, /** @type {number} */ pos, /** @type {RegExpMatchArray} */ duration;
+    var line: string, current: Track = {} as Track, pos: number, duration: RegExpMatchArray;
     for(var i=0;i<lines.length;i++){
-        line = /** @type {string} */ (lines[i]).trim();
+        line = lines[i]!.trim();
 
         if (line == ''){
             continue;
@@ -113,19 +91,14 @@ function parse(content){
         //console.log(util.inspect(current));
         result.tracks.push(current);
 
-        current = /** @type {Track} */ ({});
+        current = {} as Track;
     }
 
     return result;
 }
 
-/**
- * @param {M3U} m3u
- * @returns {string}
- */
-function format(m3u){
-    /** @type {string} */
-    var result = EXTM3U;
+function format(m3u: M3U): string {
+    var result: string = EXTM3U;
     if (m3u.header){
         result += formatParams(m3u.header);
     }
@@ -144,5 +117,5 @@ function format(m3u){
     return result;
 }
 
-module.exports.parse = parse;
-module.exports.format = format;
+export { parse };
+export { format };
