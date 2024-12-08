@@ -2,12 +2,12 @@
   "name": "m3ujs",
   "version": "1.0.4",
   "description": "Parses and formats m3u files",
-  "main": "./src/index.js",
+  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc --project ./tsconfig.build.json",
     "dev": "tsc --watch",
-    "test": "cd ./test && node --test --watch ./test.js"
+    "test": "cd ./test && tsx --test --watch ./test.ts"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
     "@types/chai": "^5.0.1",
     "@types/node": "^22.10.1",
     "chai": "^5.1.2",
+    "tsx": "^4.19.2",
     "typescript": "^5.7.2"
   }
 }
