@@ -2,6 +2,7 @@
  * Created by solvek on 26.01.16.
  */
 
+var { describe, it } = require('node:test');
 var chai = require('chai');
 var fs = require('fs');
 var should = require('chai').should();

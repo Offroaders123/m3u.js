@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc --project ./tsconfig.build.json",
     "dev": "tsc --watch",
-    "test": "cd ./test && mocha"
+    "test": "cd ./test && node --test --watch ./test.js"
   },
   "repository": {
     "type": "git",
@@ -26,10 +26,8 @@
   "homepage": "https://github.com/solvek/m3u.js#readme",
   "devDependencies": {
     "@types/chai": "^5.0.1",
-    "@types/mocha": "^10.0.10",
     "@types/node": "^22.10.1",
     "chai": "^5.1.2",
-    "mocha": "^11.0.1",
     "typescript": "^5.7.2"
   }
 }
