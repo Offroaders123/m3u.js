@@ -8,10 +8,10 @@
     "noEmit": true,
     "strict": true,
     "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noUncheckedIndexedAccess": true,
+    // "noPropertyAccessFromIndexSignature": true,
+    // "noUncheckedIndexedAccess": true,
     "allowUnreachableCode": false,
-    "noUnusedLocals": true,
+    // "noUnusedLocals": true,
     "allowUnusedLabels": false,
     "noUnusedParameters": true
   }

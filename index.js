@@ -10,10 +10,27 @@ var REGEX_DURATION = /\s*(-?\d+)/g;
 
 //var util = require('util');
 
+/**
+ * @typedef {{ title: string; length: number; params: Params; file: string; }} Track
+ */
+
+/**
+ * @typedef {Record<string, string>} Params
+ */
+
+/**
+ * @typedef {{ tracks: Track[]; header: Params; }} M3U
+ */
+
+/**
+ * @param {string} data
+ * @returns {Params}
+ */
 function parseParams(data){
+    /** @type {Params} */
     var result = {};
 
-    var m, key, value;
+    var /** @type {RegExpExecArray | null} */ m, /** @type {string} */ key, /** @type {string} */ value;
 
     while ((m = REGEX_PARAMS.exec(data)) !== null) {
         if (m.index === REGEX_PARAMS.lastIndex) {
@@ -32,7 +49,12 @@ function parseParams(data){
     return result;
 }
 
+/**
+ * @param {Params} params
+ * @returns {string}
+ */
 function formatParams(params){
+    /** @type {string} */
     var result = '';
     for(var key in params){
         result += ' ' + key + '="' + params[key]+'"';
@@ -41,17 +63,24 @@ function formatParams(params){
     return result;
 }
 
+/**
+ * @param {string} content
+ * @returns {M3U}
+ */
 function parse(content){
+    /** @type {M3U} */
     var result = {
-        tracks: []
+        tracks: [],
+        header: {}
     };
 
     //console.log(content);
+    /** @type {string[]} */
     var lines = content.split('\n');
 
-    var line, current = {}, pos, duration;
+    var /** @type {string} */ line, /** @type {Track} */ current = {}, /** @type {number} */ pos, /** @type {RegExpMatchArray} */ duration;
     for(var i=0;i<lines.length;i++){
-        line = lines[i].trim();
+        line = /** @type {string} */ (lines[i]).trim();
 
         if (line == ''){
             continue;
@@ -84,13 +113,18 @@ function parse(content){
         //console.log(util.inspect(current));
         result.tracks.push(current);
 
-        current = {};
+        current = /** @type {Track} */ ({});
     }
 
     return result;
 }
 
+/**
+ * @param {M3U} m3u
+ * @returns {string}
+ */
 function format(m3u){
+    /** @type {string} */
     var result = EXTM3U;
     if (m3u.header){
         result += formatParams(m3u.header);
