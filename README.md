@@ -1,26 +1,27 @@
 # m3u.js
-m3u parser and formatter
+m3u parser and formatter.
 
 # Installation
 
-`npm install solvek/m3u.js`
+```sh
+npm install solvek/m3u.js
+```
 
 # Usage
 
 ## Parsing
 
-```
+```js
 var m3u = require('m3u.js');
 
 var content = // read content of m3u as string
 
 var parsed = m3u.parse(content);
-
 ```
 
 `parsed` variable will contain json:
 
-```
+```js
 { tracks: 
    [ { title: 'Test',
        length: 0,
@@ -35,7 +36,7 @@ var parsed = m3u.parse(content);
 
 Use m3u.js for creating a string m3u playlist from a json object.
 
-```
+```js
 var m3u = require('m3u.js');
 
 var m3uObject = { tracks: 
@@ -52,4 +53,4 @@ var content = m3u.format(m3uObject);
 
 # Using in browser
 
-The library does not have any external dependency. It can be used in broswers as well.
+The library does not have any external dependencies. It can be used in browsers as well.
