@@ -3,13 +3,14 @@
  */
 
 import { describe, it } from 'node:test';
-import * as fs from 'fs';
+import { readFileSync } from 'node:fs';
 import { expect } from 'chai';
 
-import * as m3u from '../src/index.js';
+import { parse, format } from '../src/index.js';
+import type { M3U, Params, Track } from '../src/index.js';
 
 describe("Parsing m3u", function() {
-    const parsed: m3u.M3U = m3u.parse(fs.readFileSync('./test.m3u', 'utf8'));
+    const parsed: M3U = parse(readFileSync('./test.m3u', 'utf8'));
 
     //const util = require('util');
     //console.log("Parsed: "+util.inspect(parsed));
@@ -19,7 +20,7 @@ describe("Parsing m3u", function() {
         expect(parsed).to.have.ownProperty('header');
     });
 
-    const header: m3u.Params = parsed.header;
+    const header: Params = parsed.header;
 
     it("Should have header with 2 params", function(){
         expect(Object.keys(header).length).to.equal(2);
@@ -30,14 +31,14 @@ describe("Parsing m3u", function() {
         expect(header['param2']!).to.equal('val2 val3');
     });
 
-    const tracks: m3u.Track[] = parsed.tracks;
+    const tracks: Track[] = parsed.tracks;
 
     it("Should have 3 tracks", function() {
         expect(tracks).to.be.an('array');
         expect(tracks.length).to.equal(3);
     });
 
-    const track1: m3u.Track = tracks[0]!;
+    const track1: Track = tracks[0]!;
 
     it("Should parse track 1", function() {
         expect(track1).to.be.an('object');
@@ -47,7 +48,7 @@ describe("Parsing m3u", function() {
     });
 
     it("Should parse track params", function() {
-        const params: m3u.Params = track1.params;
+        const params: Params = track1.params;
         expect(params).to.be.an('object');
         expect(Object.keys(params).length).to.equal(2);
         expect(params).to.have.ownProperty('p1');
@@ -57,7 +58,7 @@ describe("Parsing m3u", function() {
     });
 
     it("Should parse track 2", function() {
-        const track2: m3u.Track = tracks[1]!;
+        const track2: Track = tracks[1]!;
 
         expect(track2).to.be.an('object');
         expect(track2.length).to.equal(-1);
@@ -65,7 +66,7 @@ describe("Parsing m3u", function() {
     });
 
     it("Should parse track length", function() {
-        const track3: m3u.Track = tracks[2]!;
+        const track3: Track = tracks[2]!;
 
         expect(track3).to.be.an('object');
         expect(track3.length).to.equal(500);
@@ -74,7 +75,7 @@ describe("Parsing m3u", function() {
 
 describe("Formatting test", function(){
     it("Should format global params", function(){
-        const formatted: string = m3u.format({header: {param1: 'val1', 'param2': 'val2'}, tracks: []});
+        const formatted: string = format({header: {param1: 'val1', 'param2': 'val2'}, tracks: []});
         expect(formatted).to.equal('#EXTM3U param1="val1" param2="val2"\n');
     });
 });

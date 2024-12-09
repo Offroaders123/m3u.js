@@ -47,7 +47,7 @@ function formatParams(params: Params): string {
     return result;
 }
 
-function parse(content: string): M3U {
+export function parse(content: string): M3U {
     const result: M3U = {
         tracks: [],
         header: {}
@@ -97,7 +97,7 @@ function parse(content: string): M3U {
     return result;
 }
 
-function format(m3u: M3U): string {
+export function format(m3u: M3U): string {
     let result: string = EXTM3U;
     if (m3u.header){
         result += formatParams(m3u.header);
@@ -116,6 +116,3 @@ function format(m3u: M3U): string {
 
     return result;
 }
-
-export { parse };
-export { format };
