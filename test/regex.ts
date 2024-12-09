@@ -4,10 +4,10 @@
 
 import * as util from 'util';
 
-var REGEX = /\s*(-?\d+)/g;
+const REGEX = /\s*(-?\d+)/g;
 
-var str = '500,Test3';
+const str = '500,Test3';
 
-var res = str.match(REGEX);
+const res = str.match(REGEX);
 
 console.log(util.inspect(res));

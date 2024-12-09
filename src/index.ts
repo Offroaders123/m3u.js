@@ -2,13 +2,13 @@
  * Created by solvek on 26.01.16.
  */
 
-var EXTM3U = '#EXTM3U';
-var EXTINF = '#EXTINF:';
+const EXTM3U = '#EXTM3U';
+const EXTINF = '#EXTINF:';
 
-var REGEX_PARAMS = /\s*("([^"]+)"|([^=]+))=("([^"]+)"|(\S+))/g;
-var REGEX_DURATION = /\s*(-?\d+)/g;
+const REGEX_PARAMS = /\s*("([^"]+)"|([^=]+))=("([^"]+)"|(\S+))/g;
+const REGEX_DURATION = /\s*(-?\d+)/g;
 
-//var util = require('util');
+//const util = require('util');
 
 export type Track = { title: string; length: number; params: Params; file: string; };
 
@@ -17,9 +17,9 @@ export type Params = Record<string, string>;
 export type M3U = { tracks: Track[]; header: Params; };
 
 function parseParams(data: string): Params {
-    var result: Params = {};
+    const result: Params = {};
 
-    var m: RegExpExecArray | null, key: string, value: string;
+    let m: RegExpExecArray | null, key: string, value: string;
 
     while ((m = REGEX_PARAMS.exec(data)) !== null) {
         if (m.index === REGEX_PARAMS.lastIndex) {
@@ -39,8 +39,8 @@ function parseParams(data: string): Params {
 }
 
 function formatParams(params: Params): string {
-    var result: string = '';
-    for(var key in params){
+    let result: string = '';
+    for(const key in params){
         result += ' ' + key + '="' + params[key]+'"';
     }
 
@@ -48,16 +48,16 @@ function formatParams(params: Params): string {
 }
 
 function parse(content: string): M3U {
-    var result: M3U = {
+    const result: M3U = {
         tracks: [],
         header: {}
     };
 
     //console.log(content);
-    var lines: string[] = content.split('\n');
+    const lines: string[] = content.split('\n');
 
-    var line: string, current: Track = {} as Track, pos: number, duration: RegExpMatchArray;
-    for(var i=0;i<lines.length;i++){
+    let line: string, current: Track = {} as Track, pos: number, duration: RegExpMatchArray;
+    for(let i=0;i<lines.length;i++){
         line = lines[i]!.trim();
 
         if (line == ''){
@@ -98,7 +98,7 @@ function parse(content: string): M3U {
 }
 
 function format(m3u: M3U): string {
-    var result: string = EXTM3U;
+    let result: string = EXTM3U;
     if (m3u.header){
         result += formatParams(m3u.header);
     }
