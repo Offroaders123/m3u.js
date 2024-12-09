@@ -2,6 +2,7 @@
   "name": "m3ujs",
   "version": "1.0.4",
   "description": "Parses and formats m3u files",
+  "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {

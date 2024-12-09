@@ -3,10 +3,10 @@
  */
 
 import { describe, it } from 'node:test';
-import fs = require('fs');
+import * as fs from 'fs';
 import { expect } from 'chai';
 
-import m3u = require('../src/index.js');
+import * as m3u from '../src/index.js';
 
 describe("Parsing m3u", function() {
     var parsed: m3u.M3U = m3u.parse(fs.readFileSync('./test.m3u', 'utf8'));

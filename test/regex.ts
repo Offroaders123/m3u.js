@@ -2,7 +2,7 @@
  * Created by solvek on 14.03.16.
  */
 
-var util = require('util');
+import * as util from 'util';
 
 var REGEX = /\s*(-?\d+)/g;
 
