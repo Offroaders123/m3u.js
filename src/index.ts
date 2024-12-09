@@ -10,11 +10,19 @@ const REGEX_DURATION = /\s*(-?\d+)/g;
 
 //const util = require('util');
 
-export type Track = { title: string; length: number; params: Params; file: string; };
+export interface Track {
+    title: string;
+    length: number;
+    params: Params;
+    file: string;
+}
 
 export type Params = Record<string, string>;
 
-export type M3U = { tracks: Track[]; header: Params; };
+export interface M3U {
+    tracks: Track[];
+    header: Params;
+}
 
 function parseParams(data: string): Params {
     const result: Params = {};
