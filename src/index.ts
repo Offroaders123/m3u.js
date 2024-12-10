@@ -51,7 +51,7 @@ function parseParams(data: string): Params {
 function formatParams(params: Params): string {
     let result: string = '';
     for (const key in params) {
-        result += ' ' + key + '="' + params[key] + '"';
+        result += ` ${key}="${params[key]!}"`;
     }
 
     return result;
@@ -116,16 +116,9 @@ export function format(m3u: M3U): string {
         result += formatParams(m3u.header);
     }
     result += '\n';
-    m3u.tracks.forEach(function(track) {
-        result += EXTINF
-            + track.length
-            + formatParams(track.params)
-            + ","
-            + track.title
-            + '\n'
-            + track.file
-            + '\n';
-    });
+    for (const track of m3u.tracks) {
+        result += `${EXTINF}${track.length}${formatParams(track.params)},${track.title}\n${track.file}\n`;
+    }
 
     return result;
 }
