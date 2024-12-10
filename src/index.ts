@@ -27,7 +27,9 @@ export interface M3U {
 function parseParams(data: string): Params {
     const result: Params = {};
 
-    let m: RegExpExecArray | null, key: string, value: string;
+    let m: RegExpExecArray | null;
+    let key: string;
+    let value: string;
 
     while ((m = REGEX_PARAMS.exec(data)) !== null) {
         if (m.index === REGEX_PARAMS.lastIndex) {
@@ -48,8 +50,8 @@ function parseParams(data: string): Params {
 
 function formatParams(params: Params): string {
     let result: string = '';
-    for(const key in params){
-        result += ' ' + key + '="' + params[key]+'"';
+    for (const key in params) {
+        result += ' ' + key + '="' + params[key] + '"';
     }
 
     return result;
@@ -64,22 +66,25 @@ export function parse(content: string): M3U {
     //console.log(content);
     const lines: string[] = content.split('\n');
 
-    let line: string, current: Track = {} as Track, pos: number, duration: RegExpMatchArray;
-    for(let i=0;i<lines.length;i++){
+    let line: string;
+    let current: Track = {} as Track;
+    let pos: number;
+    let duration: RegExpMatchArray;
+    for (let i = 0; i < lines.length; i++) {
         line = lines[i]!.trim();
 
-        if (line == ''){
+        if (line == '') {
             continue;
         }
 
-        if (line.indexOf(EXTM3U) == 0){
+        if (line.indexOf(EXTM3U) == 0) {
             result.header = parseParams(line.substr(EXTM3U.length));
             continue;
         }
 
-        if (line.indexOf(EXTINF) == 0){
+        if (line.indexOf(EXTINF) == 0) {
             pos = line.lastIndexOf(',');
-            current.title = line.substr(pos+1).trim();
+            current.title = line.substr(pos + 1).trim();
 
             line = line.substring(EXTINF.length, pos).trim();
             duration = line.match(REGEX_DURATION);
@@ -90,7 +95,7 @@ export function parse(content: string): M3U {
             continue;
         }
 
-        if (line.indexOf("#") == 0){
+        if (line.indexOf("#") == 0) {
             continue;
         }
 
@@ -107,19 +112,19 @@ export function parse(content: string): M3U {
 
 export function format(m3u: M3U): string {
     let result: string = EXTM3U;
-    if (m3u.header){
+    if (m3u.header) {
         result += formatParams(m3u.header);
     }
-    result+= '\n';
-    m3u.tracks.forEach(function(track){
+    result += '\n';
+    m3u.tracks.forEach(function(track) {
         result += EXTINF
-            +track.length
-            +formatParams(track.params)
-            +","
-            +track.title
-            +'\n'
-            +track.file
-            +'\n';
+            + track.length
+            + formatParams(track.params)
+            + ","
+            + track.title
+            + '\n'
+            + track.file
+            + '\n';
     });
 
     return result;

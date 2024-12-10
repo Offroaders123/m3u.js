@@ -15,14 +15,14 @@ describe("Parsing m3u", function() {
     //const util = require('util');
     //console.log("Parsed: "+util.inspect(parsed));
 
-    it("Should be parsed to object", function(){
+    it("Should be parsed to object", function() {
         expect(parsed).to.be.an('object');
         expect(parsed).to.have.ownProperty('header');
     });
 
     const header: Params = parsed.header;
 
-    it("Should have header with 2 params", function(){
+    it("Should have header with 2 params", function() {
         expect(Object.keys(header).length).to.equal(2);
         expect(header).to.be.an('object');
         expect(header).to.have.ownProperty('param1');
@@ -73,9 +73,9 @@ describe("Parsing m3u", function() {
     });
 });
 
-describe("Formatting test", function(){
-    it("Should format global params", function(){
-        const formatted: string = format({header: {param1: 'val1', 'param2': 'val2'}, tracks: []});
+describe("Formatting test", function() {
+    it("Should format global params", function() {
+        const formatted: string = format({ header: { param1: 'val1', 'param2': 'val2' }, tracks: [] });
         expect(formatted).to.equal('#EXTM3U param1="val1" param2="val2"\n');
     });
 });
