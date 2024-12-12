@@ -79,3 +79,14 @@ describe("Formatting test", function() {
         expect(formatted).to.equal('#EXTM3U param1="val1" param2="val2"\n');
     });
 });
+
+describe("Symmetry test", function() {
+    it("Should be symmetrical with original", function() {
+        const original: string = readFileSync('./test.m3u', 'utf8');
+        const parsed: M3U = parse(original);
+        const rewritten: string = format(parsed);
+        console.log(original);
+        console.log(rewritten);
+        expect(original).to.be.equal(rewritten);
+    });
+});
