@@ -81,8 +81,8 @@ describe("Formatting test", function() {
 });
 
 describe("Symmetry test", function() {
-    it("Should be symmetrical with original", function() {
-        const original: string = readFileSync('./test.m3u', 'utf8');
+    it("Should be symmetrical", function() {
+        const original: string = readFileSync('./test-symmetrical.m3u', 'utf8');
         const parsed: M3U = parse(original);
         const rewritten: string = format(parsed);
         console.log(original);
