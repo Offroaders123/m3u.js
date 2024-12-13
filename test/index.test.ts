@@ -85,8 +85,6 @@ describe("Symmetry test", function() {
         const original: string = readFileSync('./test-symmetrical.m3u', 'utf8');
         const parsed: M3U = parse(original);
         const rewritten: string = format(parsed);
-        console.log(original);
-        console.log(rewritten);
         expect(original).to.be.equal(rewritten);
     });
 });
