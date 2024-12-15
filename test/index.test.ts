@@ -33,9 +33,9 @@ describe("Parsing m3u", function() {
 
     const tracks: Track[] = parsed.tracks;
 
-    it("Should have 3 tracks", function() {
+    it("Should have 4 tracks", function() {
         expect(tracks).to.be.an('array');
-        expect(tracks.length).to.equal(3);
+        expect(tracks.length).to.equal(4);
     });
 
     const track1: Track = tracks[0]!;
@@ -70,6 +70,13 @@ describe("Parsing m3u", function() {
 
         expect(track3).to.be.an('object');
         expect(track3.length).to.equal(500);
+    });
+
+    it("Should parse track name", function() {
+        const track4: Track = tracks[3]!;
+
+        expect(track4).to.be.an('object');
+        expect(track4.title).to.equal('Test4 (3 + 1, and more!)');
     });
 });
 
