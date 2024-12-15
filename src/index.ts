@@ -83,7 +83,7 @@ export function parse(content: string): M3U {
         }
 
         if (line.indexOf(EXTINF) == 0) {
-            pos = line.lastIndexOf(',');
+            pos = line.indexOf(',');
             current.title = line.substr(pos + 1).trim();
 
             line = line.substring(EXTINF.length, pos).trim();
